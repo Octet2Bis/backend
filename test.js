@@ -1,5 +1,11 @@
-const str = "osaka"
+// import {format} from "date-fns"
 
-strFor = str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+// const d= new Date()
 
-console.log(strFor)
+// console.log(format(d, "dd/MM/yyyy"))
+
+const rsa = "45"
+
+const rsab = parseInt(rsa)
+
+console.log(rsab + 10)

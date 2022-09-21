@@ -8,8 +8,9 @@ const cors = require("cors");
 const connection = require("./models/connection")
 
 var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+// var usersRouter = require('./routes/users');
 const tripsRouter = require("./routes/trips");
+const cartRouter = require("./routes/cart");
 
 var app = express();
 
@@ -23,6 +24,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.listen(3000);
 app.use('/', indexRouter);
 app.use('/trips', tripsRouter);
-app.use('/users', usersRouter);
+app.use('/cart', cartRouter);
+// app.use('/users', usersRouter);
 
 module.exports = app;
