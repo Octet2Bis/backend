@@ -33,24 +33,23 @@ router.get("/finddeparr", function(req, res) {
 
 
 // TODO: manage missing fields
-router.get("/find", function(req, res) {
+router.post("/find", function(req, res) {
 // find trips according to dep, arr and date
 
-  // first letter uppercase, rest lowercase (to be consistent with the db)
+  // make first letter uppercase, rest lowercase (to be consistent with the db)
   const inputDep = req.body.departure.charAt(0).toUpperCase() +  req.body.departure.slice(1).toLowerCase();
   const inputArr = req.body.arrival.charAt(0).toUpperCase() +  req.body.arrival.slice(1).toLowerCase();
   
   const inputDate = req.body.date;
 
+  // first, only retain trips with matching dep and arr
   Trips.find({
     departure: inputDep, 
     arrival: inputArr, 
-    // date: inputDate
     })
     .then(matchingDateTrips => {
       // turn matching trips' date into string, then compare it with inputDate (which is as string)
-        const found = matchingDateTrips.filter(trips => moment(trips.date).format("DD/MM/YYYY") === inputDate)
-        console.log(found.length);
+        const found = matchingDateTrips.filter(trips => moment(trips.date).format("YYYY-MM-DD") === inputDate)
         if (found == 0) {
           // matching trips not found
           res.json({
@@ -61,14 +60,6 @@ router.get("/find", function(req, res) {
           // matching trips found
           res.json({found})
         }
-
-      // if(matchingTrips.length > 0) {
-      //   // if matching trips have been found, display them
-      //   res.json({matchingTrips})
-      // } else {
-      //   // else, display error "Not found"
-      //   res.json({error: "Not found"})
-      // }
       })
 });
 
