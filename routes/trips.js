@@ -40,7 +40,11 @@ router.get("/find", function(req, res) {
   // TODO: turn a string date into date 
   const inputDate = new Date(req.body.date);
 
-  Trips.find({departure: inputDep, arrival: inputArr, date: inputDate})
+  Trips.find({
+    departure: inputDep, 
+    arrival: inputArr, 
+    date: inputDate
+    })
     .then(matchingTrips => {
       if(matchingTrips.length > 0) {
         // if matching trips have been found, display them

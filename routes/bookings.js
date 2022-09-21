@@ -2,21 +2,21 @@
 
 var express = require('express');
 var router = express.Router();
-const Cart = require("../models/cart")
+const Bookings = require("../models/bookings")
 
-// when user adds trip to cart, add it to cart db
+// when user adds trip to bookings, add it to bookings db
 
 router.get('/', function(req, res, next) {
-  res.send("cart index");
+  res.send("bookings index");
 });
 
 router.get('/view', function(req, res) {
-  Cart.find().then(cart => res.json({cart}))
+  Bookings.find().then(bookings => res.json({bookings}))
 });
 
 router.post("/add", function(req, res) {
-  // add trip to cart db
-  const newTrip = new Cart({
+  // add trip to bookings db
+  const newTrip = new Bookings({
     departure: req.body.departure,
     arrival: req.body.arrival,
 
@@ -27,7 +27,7 @@ router.post("/add", function(req, res) {
   })
   newTrip.save().then(savedTrip => {
     if(savedTrip) {
-    res.json({msg: `Trip ${req.body.departure} to ${req.body.arrival} added to cart`})
+    res.json({msg: `Trip ${req.body.departure} to ${req.body.arrival} added to bookings`})
     } else {
     res.json({error: true, msg: `Unable to save trip`})
   }})
@@ -36,7 +36,7 @@ router.post("/add", function(req, res) {
 // remove request
 // note: handle removing on the frontend with a delete button there
 router.delete("/remove", (req, res) => {
-  Cart.deleteOne({
+  Bookings.deleteOne({
     departure: req.body.departure,
     arrival: req.body.arrival,
     date: req.body.date,
@@ -44,7 +44,7 @@ router.delete("/remove", (req, res) => {
   }).then(
     removedTrip => {
       if (removedTrip.deletedCount > 0) {
-        res.json({msg: `Trip ${req.body.departure} to ${req.body.arrival} removed from cart`})
+        res.json({msg: `Trip ${req.body.departure} to ${req.body.arrival} removed from bookings`})
       } else {
         res.json({error: true, msg: `Unable to find trip`})
       }
