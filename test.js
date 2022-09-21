@@ -1,11 +1,18 @@
-// import {format} from "date-fns"
+var moment = require('moment'); // require
 
-// const d= new Date()
+// const rawdate = new Date()
 
-// console.log(format(d, "dd/MM/yyyy"))
+// const formdate = moment(rawdate).format("DD/MM/YYYY")
 
-const rsa = "45"
+// console.log(formdate)
 
-const rsab = parseInt(rsa)
 
-console.log(rsab + 10)
+
+const trip = {
+    _id: "6329839b9bae9f83d2ac9a75",
+    departure: "Marseille",
+    arrival: "Bruxelles",
+    date: new Date(),
+}
+
+
